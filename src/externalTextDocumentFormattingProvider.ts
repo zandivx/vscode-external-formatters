@@ -4,6 +4,7 @@ import * as etf from './externalTextFormatter';
 import * as path from 'path';
 import * as process from 'process';
 import * as config from './configuration';
+import { resolveVariables } from './resolveVariables';
 
 export const create: () => vscode.DocumentFormattingEditProvider =
     () => createFormattingProvider(
@@ -22,10 +23,11 @@ const getSettingsForDocument: (doc: vscode.TextDocument) => etf.FormatterSetting
             throw new Error(`Bad settings for externalFormatters.${doc.languageId}`);
         }
         const [, { command, arguments: args }] = applicableSelectorAndConfig;
+        const resolvedArgs = args?.map((arg) => resolveVariables(arg));
 
         return {
             command,
-            args,
+            resolvedArgs,
             workDir: documentDir(doc) || rootFolder() || process.cwd()
         };
     };
