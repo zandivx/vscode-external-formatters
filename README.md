@@ -40,7 +40,8 @@ In your `settings.json`, add the following setting:
 }
 ```
 
-The `arguments` key is optional.  
+The `arguments` key is optional. VS Code internal variables like `${file}` are resolved. A complete list of
+resolvable variables can be found [here](https://github.com/DominicVonk/vscode-variables/tree/v1.0.1?tab=readme-ov-file).
 
 So, for instance, for `Terraform` code, you can use these settings:
 
@@ -112,4 +113,3 @@ also supported.
 ## TODO
 
  * Formatter-specific working directory override
- * Variable substitution in formatter settings (for instance: `"${workspaceFolder}/tools/format-my-blub-file.sh"`)
